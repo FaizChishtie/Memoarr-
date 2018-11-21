@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		313DBE7621A61FA10031A65A /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
 		F26AAFA121A6167800A76D66 /* Memoarr- */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Memoarr-"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26AAFA421A6167800A76D66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F26AAFAB21A618CB00A76D66 /* Reward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reward.h; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 				F26AAFAC21A6191900A76D66 /* CardDeck.h */,
 				F26AAFAD21A61A4300A76D66 /* Board.h */,
 				F26AAFAE21A61A8300A76D66 /* Rules.h */,
+				313DBE7621A61FA10031A65A /* test.h */,
 			);
 			path = "Memoarr-";
 			sourceTree = "<group>";
