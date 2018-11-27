@@ -9,7 +9,8 @@
 #ifndef Reward_h
 #define Reward_h
 class Reward{
-
+    
+    
 
 
 };
