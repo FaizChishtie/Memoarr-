@@ -1,2 +1,6 @@
 # Memoarr-
-C++ Project
+
+Memoarr! console game implemented in C++!
+
+have fun
+.
