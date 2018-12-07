@@ -9,6 +9,9 @@
 #include <stdio.h>
 #include "Game.h"
 
+int Game::getNumPlayers(){
+    return static_cast<int>(players.size());
+}
 
 int Game::getRound() const{
     return round;

@@ -45,7 +45,7 @@ void Player::addReward(const Reward& rew){
 void Player::setDisplayMode(bool endOfGame){
     end = endOfGame;
 }
-Side Player::getSlide(){
+Side Player::getSide(){
     return boardSide;
 }
 void Player::setSide(Side s){

@@ -10,12 +10,14 @@
 #ifndef Rules_h
 #define Rules_h
 class Rules{
+    int turn = 0;
     
 public:
     bool isValid(Game&);
     bool gameOver(Game&);
     bool roundOver(Game&);
     Player& getNextPlayer(Game&);
+    Side getSideAtIndex(int i);
     
     
 };

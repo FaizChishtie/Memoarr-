@@ -27,20 +27,35 @@ static std::string determineFirstCharForRow(int i){
     return firstChar;
 }
 
+bool Board::isCenter(int i){
+    switch (i) {
+        case 1: return true;
+        case 6: return true;
+        case 11: return true;
+        case 16: return true;
+        case 21: return true;
+    }
+    return false;
+}
+
 void Board::generateBoard(){
     for(int i = 0; i < 25; ++i){
         std::string firstChar = determineFirstCharForRow(i);
         out_board[i] = firstChar + std::string(20, ' ');
-        if(firstChar != "  "){ //centre row
+    }
+    
+    for(int i = 0; i < 25; ++i){
+        if(isCenter(i)){ //centre row
             defaultCardToBoardFromCenter(i, 3);
             defaultCardToBoardFromCenter(i, 7);
-            if(firstChar != "C "){
-            defaultCardToBoardFromCenter(i, 11);
+            if(i!=11){
+                defaultCardToBoardFromCenter(i, 11);
             }
             defaultCardToBoardFromCenter(i, 15);
             defaultCardToBoardFromCenter(i, 19);
         }
     }
+    
     
     out_board[25] = std::string(22, ' ');
     out_board[25][3] = '1';

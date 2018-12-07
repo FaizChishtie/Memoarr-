@@ -20,7 +20,7 @@ enum Side{
     Left,
     Top,
     Right,
-    Bottom,
+    Bottom
 };
 
 
@@ -45,7 +45,7 @@ public:
     int getNRubies() const;
     void addReward(const Reward&);
     void setDisplayMode(bool endOfGame);
-    Side getSlide();
+    Side getSide();
     void setSide(Side);
     
 };

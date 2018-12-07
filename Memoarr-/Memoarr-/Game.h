@@ -33,6 +33,7 @@ public:
     void setCurrentCard( const Card*);
     Card* getCard( const Letter&, const Number& );
     void setCard( const Letter&, const Number&, Card* );
+    int getNumPlayers();
     
     friend inline  std::ostream& operator<<(std::ostream&, const Game&);
 };

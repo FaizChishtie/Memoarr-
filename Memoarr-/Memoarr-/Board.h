@@ -22,6 +22,7 @@ private:
     Card* actual_board[5][5];
     bool face_board[5][5];
 public:
+    bool isCenter(int i);
     void defaultCardToBoardFromCenter(int i, int j);
     void generateBoard();
     bool isFaceUp(const Letter&, const Number&);
