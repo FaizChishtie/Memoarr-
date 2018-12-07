@@ -14,6 +14,7 @@
 #define CardDeck_h
 class CardDeck: public Deck<Card>{
     static Deck<Card> deck;
+    friend class Card;
 public:
     static CardDeck& make_cardDeck();
 };

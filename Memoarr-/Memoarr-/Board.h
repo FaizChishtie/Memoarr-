@@ -8,20 +8,22 @@
 
 #include <string>
 #include "Card.h"
+#include "Number.h"
+#include "Letter.h"
 #include <iostream>
 
 #ifndef Board_h
 #define Board_h
-enum Number { One, Two, Three, Four, Five };
-enum Letter { A, B, C, D, E };
 
 
 class Board{
 private:
-    std::string out_board[19];
+    std::string out_board[26];
     Card* actual_board[5][5];
     bool face_board[5][5];
 public:
+    void defaultCardToBoardFromCenter(int i, int j);
+    void generateBoard();
     bool isFaceUp(const Letter&, const Number&);
     bool turnFaceUp(const Letter&, const Number&);
     bool turnFaceDown(const Letter&, const Number&);
@@ -31,9 +33,16 @@ public:
     int getRow(const Letter&);
     int getCol(const Number&);
     void validateInput(int row, int col);
-    friend std::ostream& operator<<(const std::ostream& os, const Board& b);
+    friend inline std::ostream& operator<<(std::ostream&, const Board&);
     std::string* getOutBoard();
+    //~Board();
     
 };
 
+inline std::ostream& operator<<(std::ostream& _os, const Board& b){
+    for(int i = 0; i < 26; ++i){
+        _os << b.out_board[i] << std::endl;
+    }
+    return _os;
+}
 #endif /* Board_h */

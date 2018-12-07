@@ -10,6 +10,9 @@
 		F26AAFA521A6167800A76D66 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F26AAFA421A6167800A76D66 /* main.cpp */; };
 		F27CA9BB21B7954700790A39 /* CardDeck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27CA9BA21B7954700790A39 /* CardDeck.cpp */; };
 		F27CA9BD21B79F0300790A39 /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27CA9BC21B79F0300790A39 /* Board.cpp */; };
+		F27CA9BF21B859B400790A39 /* Rules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27CA9BE21B859B400790A39 /* Rules.cpp */; };
+		F27CA9C721B8625800790A39 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27CA9C621B8625800790A39 /* Player.cpp */; };
+		F27CA9CB21B8E37500790A39 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27CA9CA21B8E37500790A39 /* Game.cpp */; };
 		F29CF46921AD055E00030022 /* Reward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F29CF46821AD055E00030022 /* Reward.cpp */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +29,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		313DBE7621A61FA10031A65A /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
 		F26AAFA121A6167800A76D66 /* Memoarr- */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Memoarr-"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26AAFA421A6167800A76D66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F26AAFAC21A6191900A76D66 /* CardDeck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDeck.h; sourceTree = "<group>"; };
@@ -37,6 +39,13 @@
 		F27CA9B921B794F200790A39 /* Card.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
 		F27CA9BA21B7954700790A39 /* CardDeck.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CardDeck.cpp; sourceTree = "<group>"; };
 		F27CA9BC21B79F0300790A39 /* Board.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Board.cpp; sourceTree = "<group>"; };
+		F27CA9BE21B859B400790A39 /* Rules.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rules.cpp; sourceTree = "<group>"; };
+		F27CA9C121B85BE700790A39 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		F27CA9C221B85C5C00790A39 /* Number.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Number.h; sourceTree = "<group>"; };
+		F27CA9C321B85C7D00790A39 /* Letter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Letter.h; sourceTree = "<group>"; };
+		F27CA9C621B8625800790A39 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		F27CA9C921B8E23500790A39 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		F27CA9CA21B8E37500790A39 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		F29CF46821AD055E00030022 /* Reward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Reward.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				F26AAFA421A6167800A76D66 /* main.cpp */,
+				F27CA9C121B85BE700790A39 /* Player.h */,
+				F27CA9C621B8625800790A39 /* Player.cpp */,
 				F29CF46821AD055E00030022 /* Reward.cpp */,
 				F27CA9B721B78D1400790A39 /* Reward.h */,
 				F26AAFAC21A6191900A76D66 /* CardDeck.h */,
@@ -79,8 +90,12 @@
 				F27CA9B821B794C400790A39 /* Deck.h */,
 				F26AAFAD21A61A4300A76D66 /* Board.h */,
 				F27CA9BC21B79F0300790A39 /* Board.cpp */,
+				F27CA9C921B8E23500790A39 /* Game.h */,
+				F27CA9CA21B8E37500790A39 /* Game.cpp */,
 				F26AAFAE21A61A8300A76D66 /* Rules.h */,
-				313DBE7621A61FA10031A65A /* test.h */,
+				F27CA9BE21B859B400790A39 /* Rules.cpp */,
+				F27CA9C321B85C7D00790A39 /* Letter.h */,
+				F27CA9C221B85C5C00790A39 /* Number.h */,
 			);
 			path = "Memoarr-";
 			sourceTree = "<group>";
@@ -144,8 +159,11 @@
 			files = (
 				F27CA9BB21B7954700790A39 /* CardDeck.cpp in Sources */,
 				F29CF46921AD055E00030022 /* Reward.cpp in Sources */,
+				F27CA9C721B8625800790A39 /* Player.cpp in Sources */,
+				F27CA9BF21B859B400790A39 /* Rules.cpp in Sources */,
 				F27CA9BD21B79F0300790A39 /* Board.cpp in Sources */,
 				F26AAFA521A6167800A76D66 /* main.cpp in Sources */,
+				F27CA9CB21B8E37500790A39 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,10 +8,60 @@
 
 #include <stdio.h>
 #include "Board.h"
+#include "Letter.h"
+#include "Number.h"
 
 class Card;
 
-int getRow(const Letter& _l){
+
+
+static std::string determineFirstCharForRow(int i){
+    std::string firstChar = "  ";
+    switch (i) {
+        case 1: firstChar = "A "; break;
+        case 6: firstChar = "B "; break;
+        case 11: firstChar = "C "; break;
+        case 16: firstChar = "D "; break;
+        case 21: firstChar = "E "; break;
+    }
+    return firstChar;
+}
+
+void Board::generateBoard(){
+    for(int i = 0; i < 25; ++i){
+        std::string firstChar = determineFirstCharForRow(i);
+        out_board[i] = firstChar + std::string(20, ' ');
+        if(firstChar != "  "){ //centre row
+            defaultCardToBoardFromCenter(i, 3);
+            defaultCardToBoardFromCenter(i, 7);
+            if(firstChar != "C "){
+            defaultCardToBoardFromCenter(i, 11);
+            }
+            defaultCardToBoardFromCenter(i, 15);
+            defaultCardToBoardFromCenter(i, 19);
+        }
+    }
+    
+    out_board[25] = std::string(22, ' ');
+    out_board[25][3] = '1';
+    out_board[25][7] = '2';
+    out_board[25][11] = '3';
+    out_board[25][15] = '4';
+    out_board[25][19] = '5';
+}
+
+void Board::defaultCardToBoardFromCenter(int i, int j){
+    for(int y = -1; y < 2; ++y){
+        for(int x = -1; x < 2; ++x){
+            out_board[i+y][j+x] = 'z';
+        }
+    }
+    
+}
+
+
+
+int Board::getRow(const Letter& _l){
     int row = -1;
     switch(_l){
         case A: row = 0; break;
@@ -22,7 +72,7 @@ int getRow(const Letter& _l){
     }
     return row;
 }
-int getCol(const Number& _n){
+int Board::getCol(const Number& _n){
     int col = -1;
     switch(_n){
         case One: col = 0; break;
@@ -34,7 +84,7 @@ int getCol(const Number& _n){
     return col;
 }
 
-void validateInput(int row, int col){
+void Board::validateInput(int row, int col){
     if(row > 4 || row < 0){
         throw std::out_of_range("Row out of range");
     }
@@ -56,7 +106,7 @@ bool Board::turnFaceUp(const Letter& _l, const Number& _n){
     int row = getRow(_l);
     int col = getCol(_n);
     validateInput(row, col); //throws exception if out of range
-    
+
     if(!isFaceUp(_l, _n)){
         face_board[row][col] = true;
         //SHOULD MODIFY STRING ARRAY TO PRINT CARD !! INSERT HERE
@@ -68,21 +118,21 @@ bool Board::turnFaceUp(const Letter& _l, const Number& _n){
 bool Board::turnFaceDown(const Letter& _l, const Number& _n){
     int row = getRow(_l);
     int col = getCol(_n);
-    
+
     validateInput(row, col); //throws exception if out of range
-    
+
     if(!isFaceUp(_l, _n)){
         face_board[row][col] = false;
         //SHOULD MODIFY STRING ARRAY TO PRINT CARD !! INSERT HERE
     }
-    
+
     return false;
 }
 
 Card* Board::getCard(const Letter& _l, const Number& _n){
     int row = getRow(_l);
     int col = getCol(_n);
-    
+
     validateInput(row, col); //throws exception if out of range
     return actual_board[row][col];
 }
@@ -99,26 +149,18 @@ void Board::reset(){
         for(int j = 0; j < 5; ++j){
             face_board[i][j] = false;
             
-            // CHANGE STRING ARRAY TOO
         }
     }
-    
-    
-}
-
-std::string* Board::getOutBoard(){
-    return out_board;
-}
 
 
-/*
-std::ostream& operator<<(std::ostream& _os, Board& b){
-    std::string out[19]{*b.getOutBoard()};
-    for(int i = 0; i < 19; ++i){
-        _os << out[i];
-    }
-    return _os;
+
 }
- 
-will fail because linker error for now
-*/
+
+//Board::~Board(){
+//    for(int i = 0; i < 5; i++){
+//        for(int j = 0; j < 5; j++){
+//            delete actual_board[i][j];
+//        }
+//    }
+//}
+
