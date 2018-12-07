@@ -10,6 +10,8 @@
 #include "Card.h"
 #include "Number.h"
 #include "Letter.h"
+#include "CardDeck.h"
+#include "RewardDeck.h";
 #include <iostream>
 
 #ifndef Board_h
@@ -18,12 +20,26 @@
 
 class Board{
 private:
+    CardDeck *c;
+    
     std::string out_board[26];
     Card* actual_board[5][5];
+    int disabledPos[2];
     bool face_board[5][5];
+    bool _expert;
+    int turns_disabled;
+    
 public:
+    void enableCard();
+    int getTurnsDisabled();
+    void decrementTurnsDisabled();
+    int* getDisabledPos();
+    void disableCardForTurn( const Letter&, const Number& );
+    void turnAllFaceDown();
+    bool isExpert();
+    void setDifficulty(bool b);
     bool isCenter(int i);
-    void defaultCardToBoardFromCenter(int i, int j);
+    void modifyCardFromCenter(int i, int j, char background, char center);
     void generateBoard();
     bool isFaceUp(const Letter&, const Number&);
     bool turnFaceUp(const Letter&, const Number&);

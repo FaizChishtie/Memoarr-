@@ -24,6 +24,9 @@ private:
     const Card *currentCard;
     
 public:
+    void enableCard();
+    void decrementDisabledTurnsRemaining();
+    int getDisabledTurnsRemaining();
     int getRound() const;
     void nextRound();
     void addPlayer( const Player& );
@@ -34,7 +37,10 @@ public:
     Card* getCard( const Letter&, const Number& );
     void setCard( const Letter&, const Number&, Card* );
     int getNumPlayers();
-    
+    Player& returnFirstValidPlayer();
+    Player& getWinner();
+    ~Game();
+    void getUniqueAbility(Card* card, int x, int y, int cardNum, Board& board);
     friend inline  std::ostream& operator<<(std::ostream&, const Game&);
 };
 

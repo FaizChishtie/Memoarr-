@@ -46,6 +46,7 @@
 		F27CA9C621B8625800790A39 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		F27CA9C921B8E23500790A39 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		F27CA9CA21B8E37500790A39 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		F27CA9CC21BA5D2A00790A39 /* RewardDeck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RewardDeck.h; sourceTree = "<group>"; };
 		F29CF46821AD055E00030022 /* Reward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Reward.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +88,7 @@
 				F26AAFAC21A6191900A76D66 /* CardDeck.h */,
 				F27CA9BA21B7954700790A39 /* CardDeck.cpp */,
 				F27CA9B921B794F200790A39 /* Card.h */,
+				F27CA9CC21BA5D2A00790A39 /* RewardDeck.h */,
 				F27CA9B821B794C400790A39 /* Deck.h */,
 				F26AAFAD21A61A4300A76D66 /* Board.h */,
 				F27CA9BC21B79F0300790A39 /* Board.cpp */,

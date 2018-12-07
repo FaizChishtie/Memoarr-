@@ -10,7 +10,6 @@
 #include "Rules.h"
 #include "Player.h"
 
-
 bool Rules::isValid(Game& game){
     return game.getPreviousCard() == game.getCurrentCard();
 
@@ -46,11 +45,23 @@ Side Rules::getSideAtIndex(int i){
 
 
 Player& Rules::getNextPlayer(Game& game){
+    game.decrementDisabledTurnsRemaining();
+    if(game.getDisabledTurnsRemaining() <= 0){
+        game.enableCard();
+    }
     int num_players = game.getNumPlayers();
-    if(num_players == (turn-1)){
+    Player& p = game.getPlayer(getSideAtIndex(turn));
+    while (!p.isActive()){
+        ++turn;
+        if(num_players == (turn+1)){
+            turn = 0;
+        }
+        p = game.getPlayer(getSideAtIndex(turn));
+    }
+    if(num_players == (turn+1)){
         turn = 0;
     }else{
         ++turn;
     }
-    return game.getPlayer(getSideAtIndex(turn));
+    return p;
 }

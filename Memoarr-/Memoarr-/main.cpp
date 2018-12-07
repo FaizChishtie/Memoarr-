@@ -11,6 +11,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <algorithm>
 #include <vector>
 #include "Rules.h"
 #include "Player.h"
@@ -32,6 +33,16 @@ Side getSideForInt(int _i){
     return s;
 }
 
+void clear() {
+    std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+}
+
+void pauseProgram(){
+    std::string c;
+    std::cout << "Press 'c' to continue... ";
+    std::cin >> c;
+}
+
 int getNumPlayers(){
     int number_of_players;
     std::cout << "Please enter the number of players (2-4): ";
@@ -51,14 +62,21 @@ int getNumPlayers(){
     return number_of_players;
 }
 
+std::string getCardRevealed(int m){
+    std::string cardRevealed;
+    std::cout << "Enter card #" << m+1 << " to be revealed: ";
+    std::cin >> cardRevealed;
+    std::cout << std::endl;
+    return cardRevealed;
+}
+
+
 int main() {
+    srand(time(NULL));
     std::string version;
     int number_of_players;
     std::vector<std::string> player_names;
     std::vector<Player> players;
-    
-
-    //sstd::cout << r << std::endl; --> fix compiler error; https://stackoverflow.com/questions/41750143/c-linker-error-after-overloading-an-operator
     
     std::cout << "Welcome to Memoarr! By Amro and Faizaan" << std::endl;
     while(true){
@@ -88,19 +106,150 @@ int main() {
     // create players, game, rules, cards, board
     
     // CREATE GAME HERE
-    Game g;
+    Game game;
     
-    Board b;
-    b.generateBoard();
-    std::cout << b << std::endl;
     for(int i = 0; i < number_of_players; i++){
         Player p(player_names[i], getSideForInt(i));
-        g.addPlayer(p);
+        game.addPlayer(p);
         
     }
     
-    // game loop
+    Board board;
+    Rules rules;
+    if(version == "B"){
+        board.setDifficulty(false); // not expert
+    }
+    if(version == "E"){
+        board.setDifficulty(true);
+    }
+    
+    board.generateBoard();
+    clear();
+    clear();
+    std::cout <<"************* STARTING GAME ************* "<< std::endl;
+    std::cout <<"************* DIFFICULTY (" << version  << ") ************* "<< std::endl;
+    while (!rules.gameOver(game)){
+        //update all cards face down
+        for(int i = 0; i < number_of_players; i++){ // update all players as active
+            Player& p = game.getPlayer(getSideForInt(i));
+            p.setActive(true);
+        }
+        pauseProgram();
+        clear();
+        if(!board.isExpert()){
+        std::cout <<"************* EMPTY BOARD BEFORE REVEAL ************* "<< std::endl;
+        board.generateBoard();
+        std::cout << board << std::endl;
+        std::cout <<"************* REVEALING BOARD FOR PLAYERS ************* "<< std::endl;
+        pauseProgram();
+        for(int i = 0; i < number_of_players; i++){ // show cards and rotate
+            clear();
+            Player& p = rules.getNextPlayer(game);
+            for(int j = 0; j < 3; ++j){
+                int _x = rand()%4;
+                int _y = rand()%4;
+                while(_x == 2 && _y == 2){
+                    _x = rand()%4;
+                    _y = rand()%4;
+                }
+                Letter l = intToLetter(_x);
+                Number n = intToNumber(_y);
+                
+                board.turnFaceUp(l, n); // 3 cards face up
+            }
+            std::cout << board << std::endl;
+            std::cout << p.getName() << "'s Reveal" << std::endl;
+            board.turnAllFaceDown();
+            board.generateBoard();
+            pauseProgram();
+        }
+        }
+        clear();
+        clear();
+        std::cout <<"************* BEGIN ROUND " << game.getRound() + 1 << " *************" << std::endl;
+        while(!rules.roundOver(game)){
+            
+            Player& p = rules.getNextPlayer(game);
+            std::cout << p.getName() << "'s Turn" << std::endl;
+            pauseProgram();
+            for(int m = 0; m < 2; ++m){
+                if(!board.isExpert()){
+                    clear();
+                    std::cout << board << std::endl;
+                }
+                std::string cardRevealed = getCardRevealed(m);
+                //validate input
+                char c_letter = cardRevealed[0];
+                char c_number = cardRevealed[1];
+                Letter letter = charToLetter(c_letter);
+                Number number = charToNumber(c_number);
+                while(board.isFaceUp(letter, number)){
+                    std::cout << "Selection is already face up! Please try again" << std::endl;
+                    cardRevealed = getCardRevealed(m);
+                    char c_letter = cardRevealed[0];
+                    char c_number = cardRevealed[1];
+                    letter = charToLetter(c_letter);
+                    number = charToNumber(c_number);
+                }
+                while (letter == board.getDisabledPos()[0] && number == board.getDisabledPos()[1]){
+                    std::cout << "Selection is already disabled! Please try again" << std::endl;
+                    cardRevealed = getCardRevealed(m);
+                    char c_letter = cardRevealed[0];
+                    char c_number = cardRevealed[1];
+                    letter = charToLetter(c_letter);
+                    number = charToNumber(c_number);
+                }
+                if(board.isExpert()){
+                    game.getUniqueAbility(board.getCard(letter,number), letter, number, m, board);
+                }
+                board.turnFaceUp(letter, number);
+                Card* card = board.getCard(letter, number);
+                game.setCurrentCard(card);
+                if(!board.isExpert()){
+                    clear();
+                    std::cout << board << std::endl;
+                }
+            }
+            pauseProgram();
+            if (!rules.isValid(game)){
+                clear();
+                clear();
+                p.setActive(false);
+                std::cout << "************ " << p.getName() << " ELIMINATED FROM THIS ROUND! ************" << std::endl;
+                pauseProgram();
+            }
+            clear();
+            if(!board.isExpert()){
+                std::cout << board << std::endl;
+                std::cout << std::endl;
+            }
+        }
+        clear();
+        clear();
+        
+        Player& winnerOfRound = game.returnFirstValidPlayer();
+        
+        std::cout <<"Winner of round " << game.getRound() + 1 << " is: " << winnerOfRound.getName() << std::endl;
+        std::cout <<"************* END ROUND " << game.getRound() + 1 << " *************" << std::endl;
+        
+        
+        game.nextRound();
+    }
+    std::cout <<  "************ ROUNDS ARE OVER ************"  << std::endl;
+    pauseProgram();
+    clear();
+    Player& winner = game.getWinner();
+    std::cout << "Winner: " << winner.getName() << " with " << winner.getNRubies() << std::endl;
+    std::cout <<"*******************************************************************" << std::endl;
+    std::cout <<"*                         !   GAME OVER   !                       *" << std::endl;
+    std::cout <<"*                    Thanks for playing MEMOARR!                  *" << std::endl;
+    std::cout <<"*                     Written by Faiz and Amro                    *" << std::endl;
+    std::cout <<"*******************************************************************" << std::endl;
+    
+    
 }
+
+
 
 
 
