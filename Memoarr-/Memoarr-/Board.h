@@ -11,7 +11,7 @@
 #include "Number.h"
 #include "Letter.h"
 #include "CardDeck.h"
-#include "RewardDeck.h";
+#include "RewardDeck.h"
 #include <iostream>
 
 #ifndef Board_h
