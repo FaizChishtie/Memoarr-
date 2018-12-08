@@ -44,7 +44,6 @@
 		F26AAFA421A6167800A76D66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F26AAFAD21A61A4300A76D66 /* Board.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
 		F26AAFAE21A61A8300A76D66 /* Rules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rules.h; sourceTree = "<group>"; };
-		F27CA9B821B794C400790A39 /* Deck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Deck.h; sourceTree = "<group>"; };
 		F27CA9BC21B79F0300790A39 /* Board.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Board.cpp; sourceTree = "<group>"; };
 		F27CA9BE21B859B400790A39 /* Rules.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rules.cpp; sourceTree = "<group>"; };
 		F27CA9C121B85BE700790A39 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 				F22273E621BC416B0048E8D9 /* RewardDeck.h */,
 				F22273E421BC41670048E8D9 /* RewardDeck.cpp */,
 				F22273E021BC41520048E8D9 /* Deck.h */,
-				F27CA9B821B794C400790A39 /* Deck.h */,
 				F26AAFAD21A61A4300A76D66 /* Board.h */,
 				F27CA9BC21B79F0300790A39 /* Board.cpp */,
 				F27CA9C921B8E23500790A39 /* Game.h */,

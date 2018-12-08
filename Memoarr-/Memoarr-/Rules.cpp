@@ -14,7 +14,7 @@ bool Rules::isValid(Game& game){
 
 }
 bool Rules::gameOver(Game& game){
-    return game.getRound() == 1; // CHANGE TO 7
+    return game.getRound() == 7; // CHANGE TO 7
 }
 
 void Rules::nextTurn(){
