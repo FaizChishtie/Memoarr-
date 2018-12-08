@@ -22,8 +22,8 @@ Player& Game::returnFirstValidPlayer(){
 
 
 
-void Game::getUniqueAbility(Card* card, int x, int y, int cardNum, Board& board){
-    char animalChar;
+bool Game::getUniqueAbility(Card* card, int x, int y, int cardNum, Board& board){
+    char animalChar = (FaceAnimal)*card;
     std::string newLoc;
     if(animalChar == 'O'){
         std::cout<< "Octopus card! Exchange place in row or column!" << std::endl;
@@ -62,7 +62,7 @@ void Game::getUniqueAbility(Card* card, int x, int y, int cardNum, Board& board)
         Letter letter = charToLetter(c_letter);
         Number number = charToNumber(c_number);
         while(board.isFaceUp(letter, number)){
-            std::cout<< "Card is face up! Choose a face up card!" << std::endl;
+            std::cout<< "Card is face up! Choose a face down card!" << std::endl;
             std::cout<< "Enter location: ";
             std::cin >> newLoc;
             c_letter = newLoc[0];
@@ -72,6 +72,30 @@ void Game::getUniqueAbility(Card* card, int x, int y, int cardNum, Board& board)
         }
         board.disableCardForTurn(letter, number);
     }
+    if(animalChar == 'C'){
+        std::cout<< "Crab card! Choose a card!" << std::endl;
+        std::cout<< "Enter location: ";
+        std::cin >> newLoc;
+        char c_letter = newLoc[0];
+        char c_number = newLoc[1];
+        Letter letter = charToLetter(c_letter);
+        Number number = charToNumber(c_number);
+        while(board.isFaceUp(letter, number)){
+            std::cout<< "Card is face up! Choose a face down card!" << std::endl;
+            std::cout<< "Enter location: ";
+            std::cin >> newLoc;
+            c_letter = newLoc[0];
+            c_number = newLoc[1];
+            letter = charToLetter(c_letter);
+            number = charToNumber(c_number);
+        }
+        board.turnFaceUp(letter, number);
+    }
+    if(animalChar == 'T'){
+        std::cout<< "Turtle card! Skipping next players turn!" << std::endl;
+        return true;
+    }
+    return false;
 }
 
 int Game::getNumPlayers(){
@@ -111,15 +135,15 @@ Player& Game::getPlayer(Side s){
     return players[s];
 }
 
-const Card* Game::getPreviousCard(){
+Card* Game::getPreviousCard(){
     return previousCard;
 }
 
-const Card* Game::getCurrentCard(){
+Card* Game::getCurrentCard(){
     return currentCard;
 }
 
-void Game::setCurrentCard( const Card* newC){
+void Game::setCurrentCard(Card* newC){
     previousCard = currentCard;
     currentCard = newC;
     
@@ -134,9 +158,6 @@ void Game::setCard( const Letter& _l, const Number& _n, Card* c){
 }
 
 Game::~Game(){
-    delete board;
-    delete currentCard;
-    delete previousCard;
 }
 
 void Game::decrementDisabledTurnsRemaining(){

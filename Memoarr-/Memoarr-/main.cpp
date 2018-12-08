@@ -15,6 +15,8 @@
 #include <vector>
 #include "Rules.h"
 #include "Player.h"
+#include "CardDeck.h"
+#include "RewardDeck.h"
 
 enum Side;
 
@@ -48,13 +50,6 @@ int getNumPlayers(){
     std::cout << "Please enter the number of players (2-4): ";
     std::cin >> number_of_players;
     std::cout << std::endl;
-//    if(!std::cin.fail()){ CHECK IF NOT INT INPUTTED @TODO
-//        std::cin.clear();
-//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-//        printErrorMessage();
-//        std::cout << "Please enter the number of players (2-4): ";
-//        std::cin >> number_of_players;
-//        std::cout << std::endl;
     if(number_of_players > 4 || number_of_players < 2){
         printErrorMessage();
         getNumPlayers();
@@ -113,9 +108,14 @@ int main() {
         game.addPlayer(p);
         
     }
-    
     Board board;
+    board.enableCard(); //set disabled card to -1 -1 
     Rules rules;
+    CardDeck cardDeck =  CardDeck::make_CardDeck();
+    RewardDeck rewardDeck = RewardDeck::make_RewardDeck();
+    Reward* rewardAtRound = rewardDeck.returnReward();
+    board.getCardsForGame(cardDeck);
+    
     if(version == "B"){
         board.setDifficulty(false); // not expert
     }
@@ -172,6 +172,8 @@ int main() {
             Player& p = rules.getNextPlayer(game);
             std::cout << p.getName() << "'s Turn" << std::endl;
             pauseProgram();
+            Letter selectionL[2];
+            Number selectionN[2];
             for(int m = 0; m < 2; ++m){
                 if(!board.isExpert()){
                     clear();
@@ -200,8 +202,13 @@ int main() {
                     number = charToNumber(c_number);
                 }
                 if(board.isExpert()){
-                    game.getUniqueAbility(board.getCard(letter,number), letter, number, m, board);
+                    bool t = game.getUniqueAbility(board.getCard(letter,number), letter, number, m, board);
+                    if(t){
+                        rules.nextTurn();
+                    }
                 }
+                selectionL[m] = letter;
+                selectionN[m] = number;
                 board.turnFaceUp(letter, number);
                 Card* card = board.getCard(letter, number);
                 game.setCurrentCard(card);
@@ -212,6 +219,9 @@ int main() {
             }
             pauseProgram();
             if (!rules.isValid(game)){
+                board.turnFaceDown(selectionL[0], selectionN[0]);
+                board.turnFaceDown(selectionL[1], selectionN[1]);
+                clear();
                 clear();
                 clear();
                 p.setActive(false);
@@ -219,33 +229,38 @@ int main() {
                 pauseProgram();
             }
             clear();
+            clear();
             if(!board.isExpert()){
                 std::cout << board << std::endl;
                 std::cout << std::endl;
+            }else{
+                board.printAllValidCards();
             }
         }
         clear();
         clear();
         
         Player& winnerOfRound = game.returnFirstValidPlayer();
-        
+        winnerOfRound.addReward(*(rewardAtRound++));
         std::cout <<"Winner of round " << game.getRound() + 1 << " is: " << winnerOfRound.getName() << std::endl;
         std::cout <<"************* END ROUND " << game.getRound() + 1 << " *************" << std::endl;
         
-        
         game.nextRound();
     }
+    clear();
+    clear();
     std::cout <<  "************ ROUNDS ARE OVER ************"  << std::endl;
     pauseProgram();
     clear();
+    clear();
+    clear();
     Player& winner = game.getWinner();
-    std::cout << "Winner: " << winner.getName() << " with " << winner.getNRubies() << std::endl;
+    std::cout << "Winner: " << winner.getName() << " with " << winner.getNRubies() << " rubies!" << std::endl;
     std::cout <<"*******************************************************************" << std::endl;
     std::cout <<"*                         !   GAME OVER   !                       *" << std::endl;
     std::cout <<"*                    Thanks for playing MEMOARR!                  *" << std::endl;
     std::cout <<"*                     Written by Faiz and Amro                    *" << std::endl;
     std::cout <<"*******************************************************************" << std::endl;
-    
     
 }
 

@@ -21,6 +21,25 @@ void Board::setDifficulty(bool b){
     _expert = b;
 }
 
+void Board::getCardsForGame(CardDeck &c){
+    for(int i = 0; i < 5; ++i){
+        for(int j = 0; j < 5; ++j){
+            actual_board[i][j] = &c(i,j);
+        }
+    }
+}
+
+void Board::printAllValidCards(){
+    for(int i = 0; i < 5; ++i){
+        for(int j = 0; j < 5; ++j){
+            if(face_board[i][j]){
+                std::cout << *actual_board[i][j] << "\n";
+            }
+        }
+    }
+}
+
+
 static std::string determineFirstCharForRow(int i){
     std::string firstChar = "  ";
     switch (i) {
@@ -175,7 +194,7 @@ bool Board::turnFaceUp(const Letter& _l, const Number& _n){
 
     if(!isFaceUp(_l, _n)){
         face_board[row][col] = true;
-        modifyCardFromCenter(rowInStringBoard(_l), colInStringBoard(_n),'a', 'B'); //TEMP TESTER GET FROM CARD
+        modifyCardFromCenter(rowInStringBoard(_l), colInStringBoard(_n), (FaceBackground)*actual_board[row][col], (FaceAnimal)*actual_board[row][col]);
     }
     return true;
 }
@@ -239,11 +258,4 @@ void Board::reset(){
 
 }
 
-//Board::~Board(){
-//    for(int i = 0; i < 5; i++){
-//        for(int j = 0; j < 5; j++){
-//            delete actual_board[i][j];
-//        }
-//    }
-//}
 

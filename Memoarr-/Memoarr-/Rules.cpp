@@ -8,16 +8,18 @@
 
 #include <stdio.h>
 #include "Rules.h"
-#include "Player.h"
 
 bool Rules::isValid(Game& game){
-    return game.getPreviousCard() == game.getCurrentCard();
+    return (FaceBackground)*game.getPreviousCard() == (FaceBackground)*game.getCurrentCard();
 
 }
 bool Rules::gameOver(Game& game){
-    return game.getRound() == 6;
+    return game.getRound() == 1; // CHANGE TO 7
 }
 
+void Rules::nextTurn(){
+    ++turn;
+}
 
 bool Rules::roundOver(Game& game){
     int count = 0;
@@ -58,7 +60,7 @@ Player& Rules::getNextPlayer(Game& game){
         }
         p = game.getPlayer(getSideAtIndex(turn));
     }
-    if(num_players == (turn+1)){
+    if(num_players <= (turn+1)){
         turn = 0;
     }else{
         ++turn;

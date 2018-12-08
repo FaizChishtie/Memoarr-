@@ -20,8 +20,8 @@ private:
     Board *board;
     int round = 0;
     std::vector<Player> players;
-    const Card *previousCard;
-    const Card *currentCard;
+    Card *previousCard;
+    Card *currentCard;
     
 public:
     void enableCard();
@@ -31,16 +31,16 @@ public:
     void nextRound();
     void addPlayer( const Player& );
     Player& getPlayer(Side);
-    const Card* getPreviousCard();
-    const Card* getCurrentCard();
-    void setCurrentCard( const Card*);
+    Card* getPreviousCard();
+    Card* getCurrentCard();
+    void setCurrentCard( Card*);
     Card* getCard( const Letter&, const Number& );
     void setCard( const Letter&, const Number&, Card* );
     int getNumPlayers();
     Player& returnFirstValidPlayer();
     Player& getWinner();
     ~Game();
-    void getUniqueAbility(Card* card, int x, int y, int cardNum, Board& board);
+    bool getUniqueAbility(Card* card, int x, int y, int cardNum, Board& board);
     friend inline  std::ostream& operator<<(std::ostream&, const Game&);
 };
 

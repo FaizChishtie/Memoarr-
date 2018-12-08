@@ -20,16 +20,18 @@
 
 class Board{
 private:
-    CardDeck *c;
     
     std::string out_board[26];
-    Card* actual_board[5][5];
     int disabledPos[2];
     bool face_board[5][5];
+    Card* actual_board[5][5];
     bool _expert;
     int turns_disabled;
     
 public:
+    void printAllValidCards();
+    void getCardsForGame(CardDeck& c);
+    Board() =default;
     void enableCard();
     int getTurnsDisabled();
     void decrementTurnsDisabled();
@@ -52,8 +54,6 @@ public:
     void validateInput(int row, int col);
     friend inline std::ostream& operator<<(std::ostream&, const Board&);
     std::string* getOutBoard();
-    //~Board();
-    
 };
 
 inline std::ostream& operator<<(std::ostream& _os, const Board& b){
